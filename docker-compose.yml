@@ -1,2 +1,21 @@
+version: '3.8'
+
 services:
-  
+  db:
+    image: postgres:15
+    container_name: portfolio_postgres
+    restart: always
+    environment:
+      # These MUST match the URL in your .env file!
+      # Example: postgresql://postgres:password@localhost:5432/portfolio_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: portfolio_db
+    ports:
+      - "5432:5432"
+    volumes:
+      # This ensures your data isn't deleted when the container stops
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
