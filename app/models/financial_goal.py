@@ -1,6 +1,7 @@
 import uuid6
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy import Column, String, Date, Numeric
+from sqlalchemy import Column, String, Date, Numeric, ForeignKey
+from sqlalchemy.orm import relationship
 
 from app.database import Base
 
@@ -15,6 +16,7 @@ class FinancialGoal(Base):
     )
     portfolio_id = Column(
         UUID(as_uuid= True),
+        ForeignKey('portfolios.portfolio_id'),
         nullable= False
     )
     goal_type = Column(String, nullable= False)
@@ -22,3 +24,6 @@ class FinancialGoal(Base):
     target_monthly_income = Column(Numeric(24, 10), nullable=True)
     expected_interest_rate = Column(Numeric(5, 2), nullable= False)
     target_date = Column(Date, nullable= False)
+
+    portfolio = relationship("Portfolio")
+

@@ -22,7 +22,8 @@ class Transaction(Base):
     )
     portfolio_id = Column(
         UUID(as_uuid= True),
-        ForeignKey('portfolio.portfolio_id')
+        ForeignKey('portfolios.portfolio_id'),
+        nullable= False
     )
 
     transaction_type = Column(String, nullable= False)
@@ -31,7 +32,7 @@ class Transaction(Base):
     fee_amount = Column(Numeric(24, 10), nullable=True)
 
     transaction_at = Column(Date, nullable= False)
-    create_at = Column(DateTime(timezone= True), server_default= func.now())
+    created_at = Column(DateTime(timezone= True), server_default= func.now())
 
     portfolio = relationship('Portfolio')
     instrument = relationship('Instrument')

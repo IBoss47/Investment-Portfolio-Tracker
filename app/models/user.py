@@ -19,7 +19,7 @@ class User(Base):
         unique= True,
         nullable= True
     )
-    create_at = Column(
+    created_at = Column(
         DateTime(timezone= True),
         server_default= func.now()
     )

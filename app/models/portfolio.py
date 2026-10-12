@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 from app.database import Base
 
 class Portfolio(Base):
-    __tablename__ = 'portfolio'
+    __tablename__ = 'portfolios'
 
     portfolio_id = Column(
         UUID(as_uuid= True),
@@ -20,10 +20,15 @@ class Portfolio(Base):
         ForeignKey('users.user_id'),
         nullable= False
     )
+    base_currency = Column(
+        String(3),
+        ForeignKey('currencies.currency_code'),
+        nullable=False
+    )
 
     name = Column(String, nullable= False)
-    base_currency = Column(String(3), nullable= False)
     inception_date = Column(Date, nullable= False)
     created_at = Column(DateTime(timezone= True), server_default= func.now())
 
     user = relationship('User')
+    currency = relationship('Currency')
